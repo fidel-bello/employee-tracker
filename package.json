@@ -18,8 +18,11 @@
   },
   "homepage": "https://github.com/fidel-bello/employee-tracker#readme",
   "dependencies": {
+    "chalk": "^4.1.0",
     "console.table": "^0.10.0",
+    "dotenv": "^8.2.0",
     "inquirer": "^8.0.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "sequelize": "^6.5.0"
   }
 }
