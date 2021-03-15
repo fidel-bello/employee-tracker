@@ -1,7 +1,7 @@
 //node modules
 const connection = require('./config/connection');
 const inquirer = require('inquirer');
-const cTable = require('console.table');``
+const cTable = require('console.table');
 
 
 //connection to mysql, if not console error
@@ -19,7 +19,8 @@ connection.connect((err) => {
 function startApp(){
     inquirer.prompt([
         {
-            name: "What would you like to do?",
+            message: "What would you like to do?",
+            name: "choice",
             type: 'rawlist',
             choices: [
                 "View All Employees?",
@@ -56,5 +57,14 @@ function startApp(){
             break;
         }
     })
+}
+
+function viewAll() {
+    connection.query("SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name, CONCAT(e.first_name, ' ' ,e.last_name) AS Manager FROM employee INNER JOIN role on role.id = employee.role_id INNER JOIN department on department.id = role.department_id left join employee e on employee.manager_id = e.id;",
+     function (err, res){
+         if (err) throw err;
+         console.table(res);
+         startApp();
+     })
 }
  
