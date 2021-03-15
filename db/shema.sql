@@ -6,7 +6,7 @@ USE emptracker_db;
 /*department table*/
 CREATE TABLE department (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAr(30)
+    name VARCHAR(30)
 );
 
 /*role table*/
