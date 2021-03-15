@@ -11,6 +11,7 @@ connection.connect((err) => {
         return;
     }
     console.log(`connected to thread id: ${connection.threadId}`);
+    console.log("Welcome!");
     //calling function to start app
     startApp();
 });
@@ -18,17 +19,42 @@ connection.connect((err) => {
 function startApp(){
     inquirer.prompt([
         {
-            name: "startPrompt",
+            name: "What would you like to do?",
             type: 'rawlist',
             choices: [
                 "View All Employees?",
                 "View All Employee's By Roles?",
-                "View All Employee's By Departments",
-                "Update Employees",
-                "Add Employee",
+                "View All Employee's By Departments?",
+                "Update Employees?",
+                "Add Employee?",
                 "Add Role?",
                 "Add Department?"
             ]
         }
-    ])
+    ]).then(function(select){
+        switch(select.choice) {
+            case "View All Employees?":
+                viewAll();
+            break;
+            case "View Alll Employee's By Roles?":
+                viewAllRoles();
+            break;
+
+            case  "View All Employee's By Departments?":
+                viewAllDept();
+            break;
+            case  "Update Employees?":
+                updateEmp();
+            case "Add Employee?":
+                addEmp();
+            break;
+            case "Add Role?":
+                addRole();
+            break; 
+            case "Add Department?":
+                addDept();
+            break;
+        }
+    })
 }
+ 
