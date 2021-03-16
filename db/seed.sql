@@ -1,53 +1,41 @@
-/*dept seeds*/
+-- DEPARTMENT SEEDS--
+INSERT INTO department (dept_name)
+VALUES ("Engineering"),
+       ("HR"),
+       ("Sales"),
+       ("Administration")
 
-INSERT INTO department (name)
-VALUE("Sales");
-INSERT INTO department(name)
-VALUE("Engineering");
-INSERT INTO department(name)
-VALUE("HR");
-INSERT INTO department(name)
-VALUE("QA");
+-- ROLES SEEDS -- 
+INSERT INTO roles (title, salary, department_id)
+VALUES ("Lead Engineer", 150000, 1),
+       ("Software Engineer", 100000, 1),
+       ("Human Resources", 80000, 2),
+       ("Workplace Safety", 60000, 2),
+       ("Lead Sales", 100000, 3),
+       ("Sales Person", 60000, 3),
+       ("Front desk", 35000, 4),
+       ("Front desk Assisstant", 30000, 4);
+
+INSERT INTO employee (first_name, last_name, employee_dept, salary, manager_id, roles_id)
+VALUES ("Frank", "Hernandez", "Engineering", 150000, NULL, 1),
+       ("Fidel", "Bello", "Engineering", 100000, 1 , 2),
+       ("Nathan", "Peek", "Engineering", 100000, 1, 2),
+       ("Diego", "Cancela", "HR", 80000, NULL, 3),
+       ("Jonathan", "Lee", "HR", 60000, 4, 3),
+       ("Monica", "Jorge", "Sales", 100000, NULL, 5),
+       ("Carlos", "Lopez", "Sales", 60000, 6, 6),
+       ("Chill", "Dude", "Administration", 35000, NULL, 7),
+       ("Cool", "Bro", "Administration", 30000, 8, 8);
+
+INSERT INTO manager (id, man_name)
+                    (1, "Frank Hernandez"),
+                    (4, "Diego Cancela"),
+                    (6, "Monica Jorge"),
+                    (8, "Chill Dude");
 
 
-/*role seeds*/
-INSERT INTO role (title, salary, department_id)
-VALUE("Lead Engineer", 150000, 2);
-INSERT INTO role (title, salary, department_id)
-VALUE("Software Engineer", 100000, 2);
-INSERT INTO role (title, salary, department_id)
-VALUE("Lead Sales", 120000, 1);
-INSERT INTO role (title, salary, department_id)
-VALUE("Sales Person", 80000, 1);
-INSERT INTO role (title, salary, department_id)
-VALUE ("Head of Human Resources", 90000, 3);
-INSERT INTO role (title, salary, department_id)
-VALUE("Workplace Safety", 60000, 3);
-INSERT INTO role(title, salary, department_id)
-VALUE("Quality Assurance", 70000, 4);
-
-/*employee seeds*/
-
-INSERT INTO employee (first_name, last_name, manager_id, role_id)
-VALUE("Frank", "Hernandez", NULL, 1);
-INSERT INTO employee (first_name, last_name, manager_id, role_id)
-VALUE("Fidel", "Bello", NULL, 2);
-INSERT INTO employee(first_name, last_name, manager_id, role_id)
-VALUE ("Speedy", "Gonzales", 3, 7);
-INSERT INTO employee (first_name, last_name, manager_id, role_id)
-VALUE("Nathan", "Peek", NULL, 2);
-INSERT INTO employee(first_name, last_name, manager_id, role_id)
-VALUE("Billy", "Phillips", NULL, 3);
-INSERT INTO employee(first_name, last_name, manager_id, role_id)
-VALUE("Monica", "Jorge", NULL, 4);
-INSERT INTO employee (first_name, last_name, manager_id, role_id)
-VALUE("Boki", "My Dog", NULL, 5);
-INSERT INTO employee (first_name, last_name, manager_id, role_id)
-VALUE ("Cool", "Dude", NULL, 6);
-INSERT INTO employee (first_name, last_name, manager_id, role_id)
-VALUE("Awesome", "Guy", NULL, 7);
-
-/*selection*/
-SELECT * FROM department;
-SELECT * FROM role;
 SELECT * FROM employee;
+SELECT * FROM roles;
+SELECT * FROM department;
+SELECT * FROM manager;
+
