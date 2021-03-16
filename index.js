@@ -66,5 +66,9 @@ function viewAll() {
          console.table(res);
          startApp();
      })
+};
+
+function viewAllRoles(){
+    
 }
  
