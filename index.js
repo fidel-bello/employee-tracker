@@ -33,7 +33,7 @@ function startApp() {
             case "View all employees by department.":
                 viewByDept();
                 break;
-            case "view all employees by manager.": 
+            case "View all employees by manager.": 
                 viewByManager();
             break;
             case  "Add employee.":
@@ -48,7 +48,7 @@ function startApp() {
             case "Update employee manager.":
                 UpdateManager();
             break;
-            case "finish.":
+            case "Finish.":
                 endSession();
             break;
         }
@@ -95,4 +95,17 @@ function viewByDept(){
         console.table("Employees by Department", res);
         startApp()
     })
+}
+
+function viewByManager(){
+   let queryString = "SELECT manager.id, manager.man_name, employee.first_name, employee.last_name ";
+   queryString += "FROM manager ";
+   queryString += "INNER JOIN employee ON manager.id = employee.manager_id ";
+   queryString += "ORDER BY manager.man_name";
+
+   connection.query(queryString, function(err, res){
+       if(err)throw err;
+       console.table('Employee under managers', res);
+       startApp()
+   })
 }
