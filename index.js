@@ -114,3 +114,47 @@ function endSession(){
     console.log(`Session ended by id # ${connection.threadId}`)
     connection.end()
 }
+
+function addEmp(){
+    inquirer.prompt([
+        {
+            name: "firstname",
+            type: "input",
+            message: "What is the new hire's first name?"
+        },
+        {
+            type: "input",
+            name: "lastname",
+            message: "What is the new hire's last name?"
+        },
+        {
+            message: "What is the new hire's department?",
+            type: "rawlist",
+            name: "newdept",
+            choices: ["Engineering", "HR", "Sales", "Administration"],
+        },
+        {
+            message: "What is the new hire's salary?",
+            type: "input",
+            name: "salary"
+        },
+        {
+            message: "Who is going to be the new hire's manager?",
+            type: "rawlist",
+            name: "newManager",
+            choices: ["Frank Hernandez", "Monica Jorge", "Diego Cancela", "Chill Dude"],
+        },
+        {
+            message: "What is the role of the new hire?",
+            type: "rawlist",
+            name: "newrole",
+            choices: ['Lead Engineer', 'Software Engineer', 'Human Resources', 'Workplace Safety', 'Lead Sales', 'Sales Person', 'Front Desk', 'Front Desk Assistant'],
+        },
+        
+    ]).then(function(choices){
+        let newEmpManager = '';
+        if(choices.newEmpMgr === 'Frank Hernandez') {
+            newEmpManager = 1
+        }
+    })
+}
