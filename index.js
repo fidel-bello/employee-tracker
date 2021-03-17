@@ -118,13 +118,13 @@ function endSession(){
 function addEmp(){
     inquirer.prompt([
         {
-            name: "firstname",
             type: "input",
+            name: "newfs",
             message: "What is the new hire's first name?"
         },
         {
             type: "input",
-            name: "lastname",
+            name: "newls",
             message: "What is the new hire's last name?"
         },
         {
@@ -136,25 +136,79 @@ function addEmp(){
         {
             message: "What is the new hire's salary?",
             type: "input",
-            name: "salary"
+            name: "newsalary"
         },
         {
             message: "Who is going to be the new hire's manager?",
             type: "rawlist",
-            name: "newManager",
-            choices: ["Frank Hernandez", "Monica Jorge", "Diego Cancela", "Chill Dude"],
+            name: "newEmpMgr",
+            choices: ["Frank Hernandez", "Monica Jorge", "Diego Cancela", "Chill Dude", "Null"],
         },
         {
             message: "What is the role of the new hire?",
             type: "rawlist",
-            name: "newrole",
+            name: "newRoles",
             choices: ['Lead Engineer', 'Software Engineer', 'Human Resources', 'Workplace Safety', 'Lead Sales', 'Sales Person', 'Front Desk', 'Front Desk Assistant'],
         },
         
     ]).then(function(choices){
         let newEmpManager = '';
+        let newRole = '';
+
         if(choices.newEmpMgr === 'Frank Hernandez') {
-            newEmpManager = 1
+            newEmpManager = 1;
         }
+        if(choices.newEmpMgr === 'Diego Cancela'){
+            newEmpManager = 4;
+        }
+        if(choices.newEmpMgr === 'Monica Jorge'){
+            newEmpManager = 6;
+        }
+        if(choices.newEmpMgr === 'Chill Dude') {
+            newEmpManager = 8;
+        }
+        if(choices.newEmpMgr === 'Null'){
+            newEmpManager = null; 
+        }
+        if(choices.newRoles === 'Lead Engineer'){
+            newRole = 1;
+        }
+        if(choices.newRoles === 'Software Engineer') {
+            newRole = 2;
+        }
+        if(choices.newRoles === 'Human Resources'){
+            newRole = 3;
+        }
+        if(choices.newRoles === 'Workplace Safety'){
+            newRole = 4;
+        }
+        if(choices.newRoles === 'Lead Sales'){
+            newRole = 5;
+        }
+        if(choices.newRoles === 'Sales Person'){
+            newRole = 6;
+        }
+        if(choices.newRoles === 'Front Desk'){
+            newRole = 7;
+        }
+        if(choices.newRoles === 'Front Deskt Assistant'){
+            newRole = 8;
+        }
+        let queryString = connection.query(
+            "INSERT INTO employee SET ?",
+            {
+                first_name: choices.newfs,
+                last_name: choices.newls,
+                employee_dept: choices.newdept,
+                salary: choices.newsalary,
+                manager_id: newEmpManager,
+                roles_id: newRole
+            },
+            function(err, res) {
+                if(err) throw err;
+                console.log(res.affectedRows + ' employee added!\n');
+                startApp()
+            }
+        )
     })
 }
