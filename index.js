@@ -270,3 +270,8 @@ function removeDeletedEmp(answer){
         }
     )
 }
+
+function updateEmpRole() {
+ console.log('hello')
+ startApp()
+}
