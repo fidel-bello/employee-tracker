@@ -222,3 +222,51 @@ function addEmp(){
         )
     })
 }
+
+// FUNCTION TO CHOOSE EMPLOYEE FROM TABLE
+function deleteEmp(){
+    let queryString = "SELECT employee.id, employee.first_name, employee.last_name ";
+    queryString += "FROM employee ";
+    connection.query(queryString, function(err,res){
+        if(err) throw err;
+        inquirer.prompt([
+            {
+                name: "choice",
+                type: "rawlist",
+                message: "Which employee would you like to remove?",
+                choices: function(){
+                    //loop through chosen employee
+                    let choiceArr = [];
+                    for(let i = 1; i < res.length; i++){
+                        let emp = " ";
+                        emp = `${res[i].id} ${res[i].first_name} ${res[i].last_name}`
+                        choiceArr.push(emp) 
+                    }
+                    return choiceArr;
+                }
+            }
+            // function to remove selected employee from table
+        ]). then(function(answer){
+            removeDeletedEmp(answer);
+            return answer;
+
+        })
+    })
+}
+
+function removeDeletedEmp(answer){
+    let choiceStr = answer.choice.split(" ");
+    connection.query(
+        "DELETE FROM employee WHERE ?",
+        [
+            {
+                id: parseInt(choiceStr[0])
+            }
+        ],
+        function(err, res) {
+            if(err) throw err;
+            console.log(res.affectedRow + " The employee has been removed");
+            startApp();
+        }
+    )
+}
