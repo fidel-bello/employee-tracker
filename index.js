@@ -82,3 +82,17 @@ function viewEmp (){
     })
     
 }
+
+//VIEW ALL EMPLOYEES BY DEPARTMENTS
+function viewByDept(){
+    let queryString = "SELECT department.dept_name, employee.id, employee.first_name, employee.last_name ";
+    queryString += "FROM department ";
+    queryString += "INNER JOIN employee ON employee.employee_dept = department.dept_name ";
+    queryString += "ORDER by department.dept_name";
+
+    connection.query(queryString, function(err, res){
+        if(err) throw err;
+        console.table("Employees by Department", res);
+        startApp()
+    })
+}
