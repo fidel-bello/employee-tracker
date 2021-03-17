@@ -109,3 +109,8 @@ function viewByManager(){
        startApp()
    })
 }
+
+function endSession(){
+    console.log(`Session ended by id # ${connection.threadId}`)
+    connection.end()
+}
