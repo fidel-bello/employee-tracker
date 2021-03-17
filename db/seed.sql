@@ -3,7 +3,7 @@ INSERT INTO department (dept_name)
 VALUES ("Engineering"),
        ("HR"),
        ("Sales"),
-       ("Administration")
+       ("Administration");
 
 -- ROLES SEEDS -- 
 INSERT INTO roles (title, salary, department_id)
@@ -16,6 +16,7 @@ VALUES ("Lead Engineer", 150000, 1),
        ("Front desk", 35000, 4),
        ("Front desk Assisstant", 30000, 4);
 
+-- EMPLOYEE SEEDS --
 INSERT INTO employee (first_name, last_name, employee_dept, salary, manager_id, roles_id)
 VALUES ("Frank", "Hernandez", "Engineering", 150000, NULL, 1),
        ("Fidel", "Bello", "Engineering", 100000, 1 , 2),
@@ -27,13 +28,16 @@ VALUES ("Frank", "Hernandez", "Engineering", 150000, NULL, 1),
        ("Chill", "Dude", "Administration", 35000, NULL, 7),
        ("Cool", "Bro", "Administration", 30000, 8, 8);
 
+
+-- MANAGER SEEDS --
 INSERT INTO manager (id, man_name)
-                    (1, "Frank Hernandez"),
-                    (4, "Diego Cancela"),
-                    (6, "Monica Jorge"),
-                    (8, "Chill Dude");
+VALUES (1, "Frank Hernandez"),
+       (4, "Diego Cancela"),
+       (6, "Monica Jorge"),
+       (8, "Chill Dude");
 
 
+-- SELECTING FROM TABLES --
 SELECT * FROM employee;
 SELECT * FROM roles;
 SELECT * FROM department;
