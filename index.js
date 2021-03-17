@@ -97,6 +97,8 @@ function viewByDept(){
     })
 }
 
+
+// VIEW EMPLOYEES UNDER MANAGERS
 function viewByManager(){
    let queryString = "SELECT manager.id, manager.man_name, employee.first_name, employee.last_name ";
    queryString += "FROM manager ";
@@ -110,11 +112,15 @@ function viewByManager(){
    })
 }
 
+// END SESSION
+
 function endSession(){
     console.log(`Session ended by id # ${connection.threadId}`)
     connection.end()
 }
 
+
+// ADD EMPLOYEES
 function addEmp(){
     inquirer.prompt([
         {
@@ -152,9 +158,10 @@ function addEmp(){
         },
         
     ]).then(function(choices){
+        // LOCAL VARIABLES 
         let newEmpManager = '';
         let newRole = '';
-
+        // THE ANSWER SHOULD EQUAL TO THE CORRECT INTEGER
         if(choices.newEmpMgr === 'Frank Hernandez') {
             newEmpManager = 1;
         }
@@ -194,6 +201,8 @@ function addEmp(){
         if(choices.newRoles === 'Front Deskt Assistant'){
             newRole = 8;
         }
+
+        // TABLE PROPERTIES BASED ON USER INPUT
         let queryString = connection.query(
             "INSERT INTO employee SET ?",
             {
@@ -204,6 +213,7 @@ function addEmp(){
                 manager_id: newEmpManager,
                 roles_id: newRole
             },
+            // THROW ERR IF NOT THE LOG ADDED EMPLOYEE
             function(err, res) {
                 if(err) throw err;
                 console.log(res.affectedRows + ' employee added!\n');
