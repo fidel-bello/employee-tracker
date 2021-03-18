@@ -3,6 +3,7 @@ const connection = require('./config/connection');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 
+
 //connection to mysql, if not console error
 connection.connect((err) => {
     if(err) {
@@ -21,7 +22,7 @@ function startApp() {
         name: "choice",
         type: "rawlist",
         message: "What would you like to do?",
-        choices: ["View all departments.", "View all employees.", "View all employees by department.", "View all employees by manager.", "Add employee.", "Remove employee.", "Update employee role.", "Update employee manager.", "Finish."]
+        choices: ["View all departments.", "View all employees.", "View all employees by department.", "View all employees by manager.", "Add employee.", "Remove employee.", "Update employee role.", "Finish."]
     }) .then( function(res){
         switch(res.choice) {
             case "View all departments.":
@@ -44,9 +45,6 @@ function startApp() {
             break;
             case "Update employee role.":
                 updateEmpRole();
-            break;
-            case "Update employee manager.":
-                UpdateManager();
             break;
             case "Finish.":
                 endSession();
@@ -263,15 +261,120 @@ function removeDeletedEmp(answer){
                 id: parseInt(choiceStr[0])
             }
         ],
-        function(err, res) {
+        function(err) {
             if(err) throw err;
-            console.log(res.affectedRow + " The employee has been removed");
+            console.log("The employee has been removed");
             startApp();
         }
     )
 }
 
+//UPDATE EMPLOYEE FUNCTION , QUERY JUST LIKE VIEW EMPLOYEES
 function updateEmpRole() {
- console.log('hello')
- startApp()
-}
+    let query = "SELECT employee.id, employee.first_name, employee.last_name, department.dept_name, employee.roles_id, roles.title ";
+    query += "FROM employee ";
+    query += "INNER JOIN roles ON employee.roles_id = roles.id ";
+    query += "INNER JOIN department ON department.id = roles.department_id ";
+
+    connection.query(query, function(err, results) {
+    if (err) throw err;
+    
+    inquirer
+      .prompt([
+        {
+          name: "choice",
+          type: "rawlist",
+          message: "Which employee's role would you like to update?",
+          choices: function() {
+            let choiceArray = [];
+              for (let i=1; i < results.length; i++) {
+              let emp = ""; 
+              emp = `${results[i].id} ${results[i].first_name} ${results[i].last_name} ${results[i].dept_name} ${results[i].roles_id} ${results[i].title}`
+              choiceArray.push(emp)
+            }
+          return choiceArray;
+          }
+        },
+        {
+          name: "roleUpdate",
+          type: "list",
+          message: "What role would you like to update this employee's role to?",
+          choices: ['Lead Engineer', 'Software Engineer', 'Human Resources', 'Workplace Safety', 'Sales Lead', 'Sales Person', 'Front Desk', 'Front Desk Assistant']
+        }
+      ])
+      .then(function(answer) {
+      updateToChosenRole(answer);
+      return answer;
+      })
+    })  
+  }
+/// CHOSEN EMPLOYEE WILL BE CHANGED
+  function updateToChosenRole(answer) {
+    newRoleId = "";
+    newDept = "";
+    newMgr = "";
+
+    if (answer.roleUpdate === 'Lead Engineer') {
+      newRoleId = 1;
+      newDept = 'Engineer';
+      newMgr = 1;
+    }
+    if (answer.roleUpdate === 'Software Engineere') {
+     newRoleId = 2;
+     newDept = 'Engineer';
+     newMgr = 1;
+    }
+    if (answer.roleUpdate === 'Human Resources') {
+     newRoleId = 3;
+     newDept = 'HR';
+     newMgr = 4;
+    }
+    if (answer.roleUpdate === 'Workplace Safety') {
+     newRoleId = 4;
+     newDept = 'HR';
+     newMgr = 4;
+    }
+    if (answer.roleUpdate === 'Sales Lead') {
+     newRoleId = 5;
+     newDept = 'Sales';
+     newMgr = 6;
+    }
+    if( answer.roleUpdate === 'Sales Person') {
+        newRoleId = 5;
+        newDept = 'Sales';
+        newMgr = 6;
+    }
+    if(answer.roleUpdate === 'Front Desk') {
+        newRoleId = 6;
+        newDept = 'Adminstration';
+        newMgr = 8;
+  }
+   if(answer.roleUpdate === 'Front Desk Assistant') {
+       newRoleId = 7;
+       newDept = "Adminstration";
+       newMgr = 8;
+   }
+
+    let choiceStr = answer.choice.split(" ")
+    console.log(answer);
+    console.log(choiceStr[0]);
+    
+    connection.query(
+      "UPDATE employee SET ? WHERE ?",
+      [
+        {
+          roles_id: newRoleId,
+          employee_dept: newDept,
+          manager_id: newMgr
+        },
+        {
+          id: parseInt(choiceStr[0])
+        }
+      ],
+      function(error) {
+        if (error) throw error;
+        console.log("Employee role has been updated!");
+      startApp()
+      }
+    )
+  }
