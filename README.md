@@ -44,3 +44,6 @@
   ![index js - employee-tracker - Visual Studio Code 3_15_2021 9_38_26 PM](https://user-images.githubusercontent.com/73322116/111794277-712d4500-889c-11eb-817a-02fda5b1386c.png)
 
   ![index js - employee-tracker - Visual Studio Code 3_19_2021 10_20_14 AM](https://user-images.githubusercontent.com/73322116/111794618-cb2e0a80-889c-11eb-916b-757ee2964531.png)
+
+# video link
+https://drive.google.com/drive/folders/149SGaAmQuVvUpTKSDKqXnSprNv0hB9Ap?usp=sharing

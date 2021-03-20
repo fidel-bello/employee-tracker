@@ -4,6 +4,7 @@ const inquirer = require('inquirer');
 const cTable = require('console.table');
 
 
+
 //connection to mysql, if not console error
 connection.connect((err) => {
     if(err) {
@@ -316,12 +317,12 @@ function updateEmpRole() {
 
     if (answer.roleUpdate === 'Lead Engineer') {
       newRoleId = 1;
-      newDept = 'Engineer';
+      newDept = 'Engineering';
       newMgr = 1;
     }
-    if (answer.roleUpdate === 'Software Engineere') {
+    if (answer.roleUpdate === 'Software Engineer') {
      newRoleId = 2;
-     newDept = 'Engineer';
+     newDept = 'Engineering';
      newMgr = 1;
     }
     if (answer.roleUpdate === 'Human Resources') {
